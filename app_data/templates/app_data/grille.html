@@ -1,0 +1,51 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <title>Bataille navale</title>
+    <link rel="stylesheet" href="{% static 'home.css' %}">
+  </head>
+  <body>
+    <main>
+    	<div class="title">
+    		<h1>Jeu de bataille navale</h1>
+    	</div>
+
+    	<!--<div class="grid-container"></div>-->
+    	<table class="grid">
+    		{% for ligne in grille %}
+    			<tr>
+    				{% for case in ligne %}
+                        {% if case == 0 or case == 1 %}
+                            <td><a href="{%url 'grille' x=forloop.counter0 y=forloop.parentloop.counter0 %}"><img src="{% static 'eau.svg' %}"></a> </td>
+                        {% endif %}
+                        {% if case == 2 %}
+                            <td><a href="{%url 'grille' x=forloop.counter0 y=forloop.parentloop.counter0 %}"><img src="{% static 'goutte.svg' %}"></a> </td>
+                        {% endif %}		
+                        {% if case == 3 %}
+                            <td><a href="{%url 'grille' x=forloop.counter0 y=forloop.parentloop.counter0 %}"><img src="{% static 'bateau.svg' %}"></a> </td>
+                        {% endif %} 	
+    				{% endfor %}
+    			</tr>
+    		{% endfor %}
+    	</table>
+
+        <div id="legende">
+            <p><img src="{% static 'eau.svg' %}"> : Case non découverte </p>
+            <p><img src="{% static 'bateau.svg' %}"> : Bateau touché </p>
+            <p><img src="{% static 'goutte.svg' %}"> : Coup dans l'eau </p>
+        </div>
+
+        <div>
+            {% if win == True %}
+                <p> Tous les bateaux ont été trouvés en {{nb_coups}} coups !</p>
+            {% endif %}
+        <div>
+
+    	<div>
+    		<a id="generate" href="{%url 'accueil'%}"> Retour à l'accueil </a>
+    	</div>
+
+    </main>
+  </body>
+</html>

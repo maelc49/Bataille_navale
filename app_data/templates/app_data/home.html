@@ -1,0 +1,29 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <title>Bataille navale</title>
+    <link rel="stylesheet" href="{% static 'home.css' %}">
+  </head>
+  <body>
+    <main>
+    	<div class="title">
+    		<h1>Jeu de bataille navale</h1>
+    	</div>
+
+		<form method="post" action="{{request.path}}">
+			{% csrf_token %}
+	    	<div class="input-slider">
+	    		<p> Taille de la grille souhaitée : </p>
+	    		<input type="range" min={{n_min}} max={{n_max}} value={{n}} id="slider" oninput="rangeValue.innerText = this.value" name="n" onchange="form.submit()">
+	    		<p id="rangeValue">{{n}}</p>
+	    	</div>
+	    </form>
+
+    	<div>
+    		<a id="generate" href="{%url 'grille'%}"> Générer une grille </a>
+    	</div>
+
+    </main>
+  </body>
+</html>
