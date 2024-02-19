@@ -2,9 +2,10 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from .models import get_n_min, ship_placement
 
-# Create your views here.
 
-def home(request):
+def init_front(request):
+    # Vue qui permet d'initialiser la grille
+    
     L_ship = [4, 3, 3, 2, 2, 2, 1]
     n_min = get_n_min(L_ship)
     n = n_min
@@ -20,7 +21,9 @@ def home(request):
     return render(request, "app_data/home.html", context={"n_min": n_min, "n_max": 2 * n_min, "n": n, "grid": [[0 for i in range(n)] for j in range(n)]})
 
 
-def grid(request, x = None, y = None):
+def touch_case(request, x = None, y = None):
+    # Vue permettant d'actualiser la grille après un clic sur une case
+    
     n = request.session["n"]
     n_min = request.session["n_min"]
     win = False
@@ -42,4 +45,4 @@ def grid(request, x = None, y = None):
     if not any(1 in line for line in grid):
         win = True
     
-    return render(request, "app_data/grille.html", context={"grid": grid, "nb_coups": request.session["nb_try"], "win": win})
+    return render(request, "app_data/grille.html", context={"grid": grid, "nb_try": request.session["nb_try"], "win": win})
